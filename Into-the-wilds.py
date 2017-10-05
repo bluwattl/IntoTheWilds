@@ -33,26 +33,43 @@ rtextdisplayed = False
 alwaysCommands = ["reset", "inventory", "goals", "combat"]
 inventory = []
 fight = []
+fightCorrect = []
 #                   1                                                                                                                                2                                                                                                                  3                                                                                                                                    4
 regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock."]
 def combat(difficulty):
     fight = []
     difficulty += 1
+    fightChecker = ""
     for i in range(1, difficulty):
         fightadd = random.randint(1,5)
         if fightadd == 1:
             fightadd = "W"
+            fightCorrect.append("n")
         elif fightadd == 2:
             fightadd = "A"
+            fightCorrect.append("n")
         elif fightadd == 3:
             fightadd = "S"
+            fightCorrect.append("n")
         elif fightadd == 4:
             fightadd = "D"
+            fightCorrect.append("n")
         else:
             fightadd = "SPACE"
+            fightCorrect.append("n")
         fight.append(fightadd)
         i += 1
-            
+    for i in range(1, difficulty):
+        print(fight[i - 1])
+        fightchecker = input()
+        time.sleep(0.5)
+        if fightchecker == fight[i-1]:
+            fightCorrect.remove("n")
+            fightCorrect.insert(i - 1, "y")
+        else:
+            print("Wrong")
+        print(fightCorrect)
+    
             
 while True:
     if rtextdisplayed == False:
