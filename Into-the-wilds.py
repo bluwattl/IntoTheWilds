@@ -1,4 +1,5 @@
 import time
+import random
 print("INTO THE WILDS: A TEXT ADVENTURE")
 def backstory():
     print("YOU LIVE IN 36TH CENTURY TOKYO, WHERE THE WORLD IS IN PANIC.")
@@ -16,6 +17,7 @@ bsyn = input()
 if bsyn == "y":
     backstory()
 print("YOUR MISSION BEGINS...")
+time.sleep(1)
 print("5")
 time.sleep(1)
 print("4")
@@ -28,15 +30,44 @@ print("1")
 time.sleep(1)
 region = 1
 rtextdisplayed = False
-alwaysCommands = ["reset", "inventory", "goals"]
+alwaysCommands = ["reset", "inventory", "goals", "combat"]
 inventory = []
+fight = []
 #                   1                                                                                                                                2                                                                                                                  3                                                                                                                                    4
 regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock."]
+def combat(difficulty):
+    fight = []
+    difficulty += 1
+    for i in range(1, difficulty):
+        fightadd = random.randint(1,5)
+        if fightadd == 1:
+            fightadd = "W"
+        elif fightadd == 2:
+            fightadd = "A"
+        elif fightadd == 3:
+            fightadd = "S"
+        elif fightadd == 4:
+            fightadd = "D"
+        else:
+            fightadd = "SPACE"
+        fight.append(fightadd)
+        i += 1
+            
+            
 while True:
     if rtextdisplayed == False:
         print(regionalText[region])
         rtextdisplayed = True
     command = input()
+    if command == "inventory":
+        i = 0
+        print(inventory)
+    if command == "combat":
+        combat(5)
+        print(fight)
+        '''while i <= len(inventory):
+            print(inventory[i])
+            i = i + 1'''
     #print("region is:" + str(region))
     #print("command is:" + command)
     #print("rtextdisplayed is:" + str(rtextdisplayed))
@@ -63,6 +94,8 @@ while True:
             print("Aha! So that's where I should start.")
             time.sleep(3)
             print("The news stops, to be replaced by a cartoon about a boy trying to become a 'Pokeyman Mister?' Or something like that.")
+        elif command in alwaysCommands:
+                aiufhjhfsiuhf = 1
         else:
             print("I didn't recognise that command!")
     #print("Checking region 2 loop")
@@ -83,6 +116,8 @@ while True:
             time.sleep(0.5)
             region = 5
             rtextdisplayed = False
+        elif command in alwaysCommands:
+            aiufhjhfsiuhf = 1
         else:
             print("I didn't recognise that command!")
     #print("Checking region 3 loop")
@@ -100,6 +135,8 @@ while True:
             time.sleep(0.5)
             region = 1
             rtextdisplayed = False
+        elif command in alwaysCommands:
+                aiufhjhfsiuhf = 1
         else:
             print("I didn't recognise that command!")
     #print("Checking region 4 loop")
@@ -166,6 +203,8 @@ while True:
                 time.sleep(0.5)
                 region = 2
                 rtextdisplayed = False
+            elif command in alwaysCommands:
+                aiufhjhfsiuhf = 1
             else:
                 print("I didn't recognise that command!")
 
