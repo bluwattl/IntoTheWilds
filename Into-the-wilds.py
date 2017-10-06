@@ -76,32 +76,32 @@ while True:
         print(regionalText[region])
         rtextdisplayed = True
     command = input()
-    if command == "inventory":
+    if command.lower() == "inventory":
         i = 0
         print(inventory)
-    if command == "combat":
+    if command.lower() == "combat":
         combat(5)
         print(fight)
         '''while i <= len(inventory):
             print(inventory[i])
             i = i + 1'''
     #print("region is:" + str(region))
-    #print("command is:" + command)
+    #print("command.lower() is:" + command.lower())
     #print("rtextdisplayed is:" + str(rtextdisplayed))
     #print("Checking region 1 loop")
     if region == 1 and rtextdisplayed == True:
         #print("Got inside region 1 loop")
-        if command == "walk to door":
+        if command.lower() == "walk to door":
             print("Going north...")
             time.sleep(0.5)
             region = 2
             rtextdisplayed = False
-        elif command == "walk to kitchen":
+        elif command.lower() == "walk to kitchen":
             print("Going west...")
             time.sleep(0.5)
             region = 3
             rtextdisplayed = False
-        elif command == "use television":
+        elif command.lower() == "use television":
             print("You turn on the televsion. There is a announcer, delivering the news.")
             time.sleep(3)
             print("Always be on the lookout for the Mutants.")
@@ -111,87 +111,55 @@ while True:
             print("Aha! So that's where I should start.")
             time.sleep(3)
             print("The news stops, to be replaced by a cartoon about a boy trying to become a 'Pokeyman Mister?' Or something like that.")
-        elif command in alwaysCommands:
+        elif command.lower() in alwaysCommands:
                 aiufhjhfsiuhf = 1
         else:
             print("I didn't recognise that command!")
     #print("Checking region 2 loop")
     if region == 2 and rtextdisplayed == True:
         #print("Got inside region 2 loop")
-        if command == "walk to door":
+        if command.lower() == "walk to door":
             print("Going south...")
             time.sleep(0.5)
             region = 1
             rtextdisplayed = False
-        elif command == "walk left":
+        elif command.lower() == "walk left":
             print("Going west...")
             time.sleep(0.5)
             region = 4
             rtextdisplayed = False
-        elif command == "walk right":
+        elif command.lower() == "walk right":
             print("Going east...")
             time.sleep(0.5)
             region = 5
             rtextdisplayed = False
-        elif command in alwaysCommands:
+        elif command.lower() in alwaysCommands:
             aiufhjhfsiuhf = 1
         else:
             print("I didn't recognise that command!")
     #print("Checking region 3 loop")
     #print("region is:" + str(region))
-    #print("command is:" + command)
+    #print("command.lower() is:" + command)
     #print("rtextdisplayed is:" + str(rtextdisplayed))
     if region == 3 and rtextdisplayed == True:
         #print("Got inside region 3 loop")
-        if command == "pick up knife":
+        if command.lower() == "pick up knife":
             print("You pick up the sharpest seeming knife.")
             time.sleep(0.5)
             inventory.extend("Knife")
-        elif command == "walk to living room":
+        elif command.lower() == "walk to living room":
             print("Going east...")
             time.sleep(0.5)
             region = 1
             rtextdisplayed = False
-        elif command in alwaysCommands:
+        elif command.lower() in alwaysCommands:
                 aiufhjhfsiuhf = 1
         else:
             print("I didn't recognise that command!")
     #print("Checking region 4 loop")
     if region == 4 and rtextdisplayed == True:
         #print("Got inside region 4 loop")
-        if command == "look at e-post":
-            print("It says:")
-            time.sleep(2.5)
-            print("E-POST: CNR HIGASHI & SHIBUYA")
-            time.sleep(0.5)
-            print("WEST: POLICE STATION, HOSPITAL, DAIGAKU HIGH SCHOOL.")
-            time.sleep(0.5)
-            print("NORTH: SHIBUYA LIBRARY, KOKUGAKUIN UNIVERSITY.")
-            time.sleep(0.5)
-            print("EAST: APARTMENTS.")
-            time.sleep(0.5)
-        elif command == "look at clock":
-            print("The time is 1:37am.")
-            time.sleep(0.5)
-        elif command == "walk north":
-            print("Going north...")
-            time.sleep(0.5)
-            region = 6
-            rtextdisplayed = False
-        elif command == "walk west":
-            print("Going west...")
-            time.sleep(0.5)
-            region = 7
-            rtextdisplayed = False
-        elif command == "walk east":
-            print("Going east...")
-            time.sleep(0.5)
-            region = 2
-            rtextdisplayed = False
-        else:
-            print("I didn't recognise that command!")
-        if region == 5 and rtextdisplayed == True:
-            if command == "look at e-post":
+        if command.lower() == "look at e-post":
                 print("It says:")
                 time.sleep(2.5)
                 print("E-POST: CNR HIGASHI & SHIBUYA")
@@ -202,27 +170,33 @@ while True:
                 time.sleep(0.5)
                 print("EAST: APARTMENTS.")
                 time.sleep(0.5)
-            elif command == "look at clock":
+        elif command.lower() == "look at clock":
                 print("The time is 1:37am.")
                 time.sleep(0.5)
-            elif command == "walk north":
-                print("Going north...")
-                time.sleep(0.5)
-                region = 6
-                rtextdisplayed = False
-            elif command == "walk west":
-                print("Going west...")
-                time.sleep(0.5)
-                region = 7
-                rtextdisplayed = False
-            elif command == "walk east":
+        elif command.lower() == "walk north":
+                print("Where do you want to go?")
+                wherenorth = input()
+                if wherenorth.lower() == "kokugakuin university" or wherenorth.lower() == "university":
+                    print("Going north...")
+                    region = 9
+                    time.sleep(0.5)
+                    rtextdisplayed = False
+                elif wherenorth.lower() == "shibuya library" or wherenorth.lower() == "library":
+                    print("Going north...")
+                    region = 10
+                    time.sleep(0.5)
+                    rtextdisplayed = False
+                else:
+                    print("You can't go there!")
+        elif command.lower() == "walk east":
                 print("Going east...")
                 time.sleep(0.5)
                 region = 2
                 rtextdisplayed = False
-            elif command in alwaysCommands:
+        elif command.lower() in alwaysCommands:
                 aiufhjhfsiuhf = 1
-            else:
+        n
+        else:
                 print("I didn't recognise that command!")
 
 
