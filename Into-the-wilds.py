@@ -202,6 +202,17 @@ while True:
                 region = 6
                 rtextdisplayed = False
             elif wherewest.lower() == "hospital":
+                print("Going west...")
+                time.sleep(0.5)
+                region = 7
+                rtextdisplayed = False
+            elif wherewest.lower() == "high school" or wherewest.lower() == "daigaku high school":
+                print("Going west...")
+                time.sleep(0.5)
+                region = 8
+                rtextdisplayed = False
+            else:
+                print("You can't go there!")
         elif command.lower() in alwaysCommands:
                 aiufhjhfsiuhf = 1
         else:
