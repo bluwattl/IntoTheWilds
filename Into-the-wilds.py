@@ -193,9 +193,17 @@ while True:
                 time.sleep(0.5)
                 region = 2
                 rtextdisplayed = False
+        elif command.lower() == "walk west":
+            print("Where do you want to go?")
+            wherewest = input()
+            if wherewest.lower() == "police station":
+                print("Going west...")
+                time.sleep(0.5)
+                region = 6
+                rtextdisplayed = False
+            elif wherewest.lower() == "hospital":
         elif command.lower() in alwaysCommands:
                 aiufhjhfsiuhf = 1
-        n
         else:
                 print("I didn't recognise that command!")
 
