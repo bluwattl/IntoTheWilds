@@ -34,8 +34,9 @@ alwaysCommands = ["reset", "inventory", "goals", "combat"]
 inventory = []
 fight = []
 fightCorrect = []
-#                   1                                                                                                                                2                                                                                                                  3                                                                                                                                    4
-regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock."]
+combat1done = False
+#                   1                                                                                                                                2                                                                                                                  3                                                                                                                                    4                                                                                       5
+regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony."]
 def combat(difficulty):
     fight = []
     difficulty += 1
@@ -89,7 +90,7 @@ while True:
     #print("command.lower() is:" + command.lower())
     #print("rtextdisplayed is:" + str(rtextdisplayed))
     #print("Checking region 1 loop")
-    if region == 1 and rtextdisplayed == True:
+    if region == 1 and rtextdisplayed:
         #print("Got inside region 1 loop")
         if command.lower() == "walk to door":
             print("Going north...")
@@ -116,7 +117,7 @@ while True:
         else:
             print("I didn't recognise that command!")
     #print("Checking region 2 loop")
-    if region == 2 and rtextdisplayed == True:
+    if region == 2 and rtextdisplayed:
         #print("Got inside region 2 loop")
         if command.lower() == "walk to door":
             print("Going south...")
@@ -141,7 +142,7 @@ while True:
     #print("region is:" + str(region))
     #print("command.lower() is:" + command)
     #print("rtextdisplayed is:" + str(rtextdisplayed))
-    if region == 3 and rtextdisplayed == True:
+    if region == 3 and rtextdisplayed:
         #print("Got inside region 3 loop")
         if command.lower() == "pick up knife":
             print("You pick up the sharpest seeming knife.")
@@ -157,7 +158,7 @@ while True:
         else:
             print("I didn't recognise that command!")
     #print("Checking region 4 loop")
-    if region == 4 and rtextdisplayed == True:
+    if region == 4 and rtextdisplayed:
         #print("Got inside region 4 loop")
         if command.lower() == "look at e-post":
                 print("It says:")
@@ -217,6 +218,17 @@ while True:
                 aiufhjhfsiuhf = 1
         else:
                 print("I didn't recognise that command!")
+    if region == 5 and rtextdisplayed:
+        if "Knife" in inventory and not combat1done:
+            print("You sneak up to the balcony. Just as you jimmy the lock, the man wakes up, and attacks you!")
+            combat(3)
+        else:
+            print("Quickly, you run back to your apartment door.")
+            print("Going west...")
+            time.sleep(0.5)
+            region = 2
+            rtextdisplayed == False
+        
 
 
 
