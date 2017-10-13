@@ -1,5 +1,12 @@
 import time
 import random
+import pygame
+import sys
+import os
+pygame.init()
+pygame.mixer.init()
+AUDIO = os.path.join('audio')
+BATTLE = pygame.mixer.Sound(AUDIO + "battle.ogg")
 print("INTO THE WILDS: A TEXT ADVENTURE")
 def backstory():
     print("YOU LIVE IN 36TH CENTURY TOKYO, WHERE THE WORLD IS IN PANIC.")
@@ -16,18 +23,22 @@ print("DO YOU WANT BACKSTORY? y/n")
 bsyn = input()
 if bsyn == "y":
     backstory()
-print("YOUR MISSION BEGINS...")
-time.sleep(1)
-print("5")
-time.sleep(1)
-print("4")
-time.sleep(1)
-print("3")
-time.sleep(1)
-print("2")
-time.sleep(1)
-print("1")
-time.sleep(1)
+    countdown()
+if bsyn == "n":
+    countdown()
+def countdown():
+    print("YOUR MISSION BEGINS...")
+    time.sleep(1)
+    print("5")
+    time.sleep(1)
+    print("4")
+    time.sleep(1)
+    print("3")
+    time.sleep(1)
+    print("2")
+    time.sleep(1)
+    print("1")
+    time.sleep(1)
 region = 1
 rtextdisplayed = False
 alwaysCommands = ["reset", "inventory", "goals", "combat"]
@@ -35,14 +46,15 @@ inventory = []
 fight = []
 fightCorrect = []
 combat1done = False
-#                   1                                                                                                                                2                                                                                                                  3                                                                                                                                    4                                                                                       5
-regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony."]
+#                   1                                                                                                                                2                                                                                                                   3                                                                                                              4                                                                                                            5                                                                         6
+regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony. <return>", "", "", "", "", "", ""]
 def combat(difficulty):
     fight = []
     difficulty += 1
     fightChecker = ""
+    BATTLE
     for i in range(1, difficulty):
-        fightadd = random.randint(1,5)
+        fightadd = random.randint(1,4)
         if fightadd == 1:
             fightadd = "W"
             fightCorrect.append("n")
@@ -52,11 +64,8 @@ def combat(difficulty):
         elif fightadd == 3:
             fightadd = "S"
             fightCorrect.append("n")
-        elif fightadd == 4:
-            fightadd = "D"
-            fightCorrect.append("n")
         else:
-            fightadd = "SPACE"
+            fightadd = "D"
             fightCorrect.append("n")
         fight.append(fightadd)
         i += 1
@@ -113,7 +122,7 @@ while True:
             time.sleep(3)
             print("The news stops, to be replaced by a cartoon about a boy trying to become a 'Pokeyman Mister?' Or something like that.")
         elif command.lower() in alwaysCommands:
-                aiufhjhfsiuhf = 1
+                ksdfhudshf = 1
         else:
             print("I didn't recognise that command!")
     #print("Checking region 2 loop")
@@ -135,7 +144,7 @@ while True:
             region = 5
             rtextdisplayed = False
         elif command.lower() in alwaysCommands:
-            aiufhjhfsiuhf = 1
+            fdauhfkdsjhfksjhdf = 1
         else:
             print("I didn't recognise that command!")
     #print("Checking region 3 loop")
@@ -154,7 +163,7 @@ while True:
             region = 1
             rtextdisplayed = False
         elif command.lower() in alwaysCommands:
-                aiufhjhfsiuhf = 1
+                sfhdkjfhkjhdf = 1
         else:
             print("I didn't recognise that command!")
     #print("Checking region 4 loop")
@@ -215,19 +224,20 @@ while True:
             else:
                 print("You can't go there!")
         elif command.lower() in alwaysCommands:
-                aiufhjhfsiuhf = 1
+                slfdijdifjsdlkfj = 1
         else:
                 print("I didn't recognise that command!")
     if region == 5 and rtextdisplayed:
         if "Knife" in inventory and not combat1done:
             print("You sneak up to the balcony. Just as you jimmy the lock, the man wakes up, and attacks you!")
             combat(3)
+            combat1done = True
         else:
             print("Quickly, you run back to your apartment door.")
             print("Going west...")
             time.sleep(0.5)
             region = 2
-            rtextdisplayed == False
+            rtextdisplayed = False
         
 
 
