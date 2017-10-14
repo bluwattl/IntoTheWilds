@@ -5,8 +5,8 @@ import sys
 import os
 pygame.init()
 pygame.mixer.init()
-AUDIO = os.path.join('audio')
-BATTLE = pygame.mixer.Sound(AUDIO + "battle.ogg")
+pygame.mixer.music.load(os.path.join("audio" , "music.ogg"))
+pygame.mixer.music.play(loops=-1)
 print("INTO THE WILDS: A TEXT ADVENTURE")
 def backstory():
     print("YOU LIVE IN 36TH CENTURY TOKYO, WHERE THE WORLD IS IN PANIC.")
@@ -46,13 +46,18 @@ inventory = []
 fight = []
 fightCorrect = []
 combat1done = False
+battling = 0
+currentEnemy = ""
 #                   1                                                                                                                                2                                                                                                                   3                                                                                                              4                                                                                                            5                                                                         6
 regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony. <return>", "", "", "", "", "", ""]
 def combat(difficulty):
+    pygame.mixer.stop()
+    pygame.mixer.music.load(os.path.join('audio', "battle.ogg"))
+    pygame.mixer.music.play()
+    battling = 1
     fight = []
     difficulty += 1
     fightChecker = ""
-    BATTLE
     for i in range(1, difficulty):
         fightadd = random.randint(1,4)
         if fightadd == 1:
@@ -78,7 +83,10 @@ def combat(difficulty):
             fightCorrect.insert(i - 1, "y")
         else:
             print("Wrong")
-        print(fightCorrect)
+            pygame.mixer.fadeout(0.5)
+            battling = 0
+
+            break
     
             
 while True:
