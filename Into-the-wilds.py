@@ -19,13 +19,6 @@ def backstory():
     time.sleep(3)
     print("YOU NEED TO TAKE ALL OF THE REMAINING HYBRIDS TO THE GROVES.")
     time.sleep(3)
-print("DO YOU WANT BACKSTORY? y/n")
-bsyn = input()
-if bsyn == "y":
-    backstory()
-    countdown()
-if bsyn == "n":
-    countdown()
 def countdown():
     print("YOUR MISSION BEGINS...")
     time.sleep(1)
@@ -39,6 +32,13 @@ def countdown():
     time.sleep(1)
     print("1")
     time.sleep(1)
+print("DO YOU WANT BACKSTORY? y/n")
+bsyn = input()
+if bsyn == "y":
+    backstory()
+    countdown()
+if bsyn == "n":
+    countdown()
 region = 1
 rtextdisplayed = False
 alwaysCommands = ["reset", "inventory", "goals", "combat"]
@@ -62,16 +62,12 @@ def combat(difficulty):
         fightadd = random.randint(1,4)
         if fightadd == 1:
             fightadd = "W"
-            fightCorrect.append("n")
         elif fightadd == 2:
             fightadd = "A"
-            fightCorrect.append("n")
         elif fightadd == 3:
             fightadd = "S"
-            fightCorrect.append("n")
         else:
             fightadd = "D"
-            fightCorrect.append("n")
         fight.append(fightadd)
         i += 1
     for i in range(1, difficulty):
@@ -79,11 +75,18 @@ def combat(difficulty):
         fightchecker = input()
         time.sleep(0.5)
         if fightchecker == fight[i-1]:
-            fightCorrect.remove("n")
-            fightCorrect.insert(i - 1, "y")
+            fightCorrect.extend("y")
+            if len(fightCorrect) > 4:
+                print("You vanquished "+ currentEnemy +"!")
+                pygame.mixer.fadeout(1)
+                time.sleep(1)
+                pygame.mixer.music.load(os.path.join("audio" , "music.ogg"))
+                pygame.mixer.music.play(loops=-1)
+                break
         else:
             print("Wrong")
-            pygame.mixer.fadeout(0.5)
+            pygame.mixer.fadeout(1)
+            time.sleep(1)
             battling = 0
 
             break
