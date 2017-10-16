@@ -92,16 +92,39 @@ def combat(difficulty):
             pygame.mixer.music.play(loops=-1)
             break
     
-            
+def commlist():
+    print("Valid commands are:")
+    print(WALK,LOOK,TAKE,CBAT,INVT,HALP[0],LEAV[0])
+    return 0
+
+WALK = ["walk","go","move"]
+LOOK = ["look","see","watch"]
+TAKE = ["use","take","grab","pick up"]
+CBAT = ["combat","fight","attack"]
+INVT = ["inventory","me","self"]
+HALP = ["help","?","huh","what","command","commands"]
+LEAV = ["quit","die","exit"]
+
+NRTH = ["north","forward"]
+SUTH = ["south","back"]
+EAST = ["east","right"]
+WEST = ["west","left"]
+UPUP = ["up","climb","jump"]
+DOWN = ["down","crouch","duck"]
+
 while True:
     if rtextdisplayed == False:
         print(regionalText[region])
         rtextdisplayed = True
     command = input()
-    if command.lower() == "inventory":
+
+    if command.lower() in HALP:
+        commlist()
+        
+    if command.lower() in INVT:
         i = 0
         print(inventory)
-    if command.lower() == "combat":
+    if command.lower() in CBAT:
         combat(5)
         print(fight)
     if command.lower() == "mute":
@@ -111,64 +134,86 @@ while True:
         '''while i <= len(inventory):
             print(inventory[i])
             i = i + 1'''
+    if command.lower() in LEAV:
+        yesquit = input("Are you sure you want to quit?")
+        if yesquit.lower()[0] == "y":
+            exit()
+        else:
+            pass
+        
     #print("region is:" + str(region))
     #print("command.lower() is:" + command.lower())
     #print("rtextdisplayed is:" + str(rtextdisplayed))
     #print("Checking region 1 loop")
     if region == 1 and rtextdisplayed:
         #print("Got inside region 1 loop")
-        if command.lower() == "walk to door":
-            print("Going north...")
-            time.sleep(0.5)
-            region = 2
-            rtextdisplayed = False
-        elif command.lower() == "walk to kitchen":
-            print("Going west...")
-            time.sleep(0.5)
-            region = 3
-            rtextdisplayed = False
-        elif command.lower() == "use television":
-            print("You turn on the televsion. There is a announcer, delivering the news.")
-            time.sleep(3)
-            print("Always be on the lookout for the Mutants.")
-            print("The Mutants, eh? Is that what they're calling us?")
-            time.sleep(3)
-            print("Already 6 of the nasty creatures are locked up in the main police station in Tokyo.")
-            print("Aha! So that's where I should start.")
-            time.sleep(3)
-            print("The news stops, to be replaced by a cartoon about a boy trying to become a 'Pokeyman Mister?' Or something like that.")
-        elif command.lower() in alwaysCommands:
+        # what is the command?
+        if command.lower().split(' ',1)[0] in WALK:
+            # print("reg1 we are walking.")
+            # but which way?
+            if "outside" in command.lower() or command.lower().split(' ',1)[-1] in NRTH:
+                print("Going north...")
+                time.sleep(0.5)
+                region = 2
+                rtextdisplayed = False
+            elif "kitchen" in command.lower() or command.lower().split(' ',1)[-1] in WEST:
+                print("Going west...")
+                time.sleep(0.5)
+                region = 3
+                rtextdisplayed = False
+            else:
+                print("You can't go that way")
+
+        if command.lower().split(' ',1)[0] in TAKE:
+            # ok, we are using something.
+            # what are we using?
+            if command.lower().split(' ',1)[-1] in ["television","tv"]:
+                print("You turn on the televsion. There is a announcer, delivering the news.")
+                time.sleep(3)
+                print("Always be on the lookout for the Mutants.")
+                print("The Mutants, eh? Is that what they're calling us?")
+                time.sleep(3)
+                print("Already 6 of the nasty creatures are locked up in the main police station in Tokyo.")
+                print("Aha! So that's where I should start.")
+                time.sleep(3)
+                print("The news stops, to be replaced by a cartoon about a boy trying to become a 'Pokeyman Mister?' Or something like that.")
+            elif command.lower() in alwaysCommands:
                 ksdfhudshf = 1
-        else:
-            print("I didn't recognise that command!")
+
+            
     #print("Checking region 2 loop")
     if region == 2 and rtextdisplayed:
         #print("Got inside region 2 loop")
-        if command.lower() == "walk to door":
-            print("Going south...")
-            time.sleep(0.5)
-            region = 1
-            rtextdisplayed = False
-        elif command.lower() == "walk left":
-            print("Going west...")
-            time.sleep(0.5)
-            region = 4
-            rtextdisplayed = False
-        elif command.lower() == "walk right":
-            print("Going east...")
-            time.sleep(0.5)
-            region = 5
-            rtextdisplayed = False
-        elif command.lower() in alwaysCommands:
-            fdauhfkdsjhfksjhdf = 1
-        else:
-            print("I didn't recognise that command!")
+        if command.lower().split(' ',1)[0] in WALK:
+            #ok, we are walking. which way?
+            if command.lower().split(' ',1)[-1] in SUTH or "door" in command.lower():
+                print("Going south...")
+                time.sleep(0.5)
+                region = 1
+                rtextdisplayed = False
+            elif command.lower().split(' ',1)[-1] in WEST:
+                print("Going west...")
+                time.sleep(0.5)
+                region = 4
+                rtextdisplayed = False
+            elif command.lower().split(' ',1)[-1] in EAST:
+                print("Going east...")
+                time.sleep(0.5)
+                region = 5
+                rtextdisplayed = False
+            elif command.lower() in alwaysCommands:
+                fdauhfkdsjhfksjhdf = 1
+            else:
+                pass
+            
     #print("Checking region 3 loop")
     #print("region is:" + str(region))
     #print("command.lower() is:" + command)
     #print("rtextdisplayed is:" + str(rtextdisplayed))
+
     if region == 3 and rtextdisplayed:
         #print("Got inside region 3 loop")
+<<<<<<< HEAD
         if command.lower() == "pick up knife":
             print("You pick up the sharpest seeming knife.")
             time.sleep(0.5)
@@ -178,61 +223,93 @@ while True:
             time.sleep(0.5)
             region = 1
             rtextdisplayed = False
+=======
+        if command.lower().split(' ',1)[0] in TAKE:
+            if "knife" in command.lower() and "Knife" not in inventory:
+                print("You pick up the sharpest seeming knife.")
+                time.sleep(0.5)
+                inventory.append("Knife")
+            elif "Knife" in inventory:
+                print("You already took the sharpest knife.")
+            else:
+                print("You can't pick that up.")
+
+        elif command.lower().split(' ',1)[0] in WALK:
+            if "living room" in command.lower() or command.lower().split(' ',1)[-1] in EAST:
+                print("Going east...")
+                time.sleep(0.5)
+                region = 1
+                rtextdisplayed = False
+            else:
+                print("You walk into a wall.")
+
+>>>>>>> b1c9b99ebd0ee076a5c566e581e6166a526cc165
         elif command.lower() in alwaysCommands:
                 sfhdkjfhkjhdf = 1
-        else:
-            print("I didn't recognise that command!")
+
     #print("Checking region 4 loop")
     if region == 4 and rtextdisplayed:
         #print("Got inside region 4 loop")
-        if command.lower() == "look at e-post":
+        if command.lower().split(' ',1)[0] in LOOK:
+            # ok we are looking.
+            # what are we looking at?
+            if "post" in command.lower():
                 print("It says:")
                 time.sleep(2.5)
                 print("E-POST: CNR HIGASHI & SHIBUYA")
                 time.sleep(0.5)
                 print("WEST: POLICE STATION, HOSPITAL, DAIGAKU HIGH SCHOOL.")
                 time.sleep(0.5)
-                print("NORTH: SHIBUYA LIBRARY, KOKUGAKUIN UNIVERSITY.")
+                print("NRTH: SHIBUYA LIBRARY, KOKUGAKUIN UNIVERSITY.")
                 time.sleep(0.5)
                 print("EAST: APARTMENTS.")
                 time.sleep(0.5)
-        elif command.lower() == "look at clock":
+            elif "clock" in command.lower():
                 print("The time is 1:37am.")
                 time.sleep(0.5)
-        elif command.lower() == "walk north":
-                print("Where do you want to go?")
-                wherenorth = input()
-                if wherenorth.lower() == "kokugakuin university" or wherenorth.lower() == "university":
-                    print("Going north...")
-                    region = 9
-                    time.sleep(0.5)
-                    rtextdisplayed = False
-                elif wherenorth.lower() == "shibuya library" or wherenorth.lower() == "library":
+
+        if command.lower().split(' ',1)[0] in WALK:
+            #where do we walk to
+            if command.lower().split(' ',1)[-1] in NRTH:
+                print("You have to be more specific than that.")
+                print("Do you want to go to the library or to the university?")
+                break
+            
+            if "kokugakuin" in command.lower() or "university" in command.lower():
+                print("Going north...")
+                region = 9
+                time.sleep(0.5)
+                rtextdisplayed = False
+            elif "shibuya" in command.lower() or "library" in command.lower():
                     print("Going north...")
                     region = 10
                     time.sleep(0.5)
                     rtextdisplayed = False
-                else:
-                    print("You can't go there!")
-        elif command.lower() == "walk east":
+            else:
+                print("You can't go there!")
+
+            if command.lower().split(' ',1)[-1] in EAST:
                 print("Going east...")
                 time.sleep(0.5)
                 region = 2
                 rtextdisplayed = False
-        elif command.lower() == "walk west":
-            print("Where do you want to go?")
-            wherewest = input()
-            if wherewest.lower() == "police station":
+
+            if command.lower().split(' ',1)[-1] in WEST:
+                print("You have to be more specific than that.")
+                print("Do you want to go to the police station, hospital, or high school?")
+                break
+
+            if "police" in command.lower() or "station" in command.lower():
                 print("Going west...")
                 time.sleep(0.5)
                 region = 6
                 rtextdisplayed = False
-            elif wherewest.lower() == "hospital":
+            elif "hospital" in command.lower():
                 print("Going west...")
                 time.sleep(0.5)
                 region = 7
                 rtextdisplayed = False
-            elif wherewest.lower() == "high school" or wherewest.lower() == "daigaku high school":
+            elif "daigaku" in command.lower() or "school" in command.lower():
                 print("Going west...")
                 time.sleep(0.5)
                 region = 8
@@ -241,8 +318,7 @@ while True:
                 print("You can't go there!")
         elif command.lower() in alwaysCommands:
                 slfdijdifjsdlkfj = 1
-        else:
-                print("I didn't recognise that command!")
+
     if region == 5 and rtextdisplayed:
         if "Knife" in inventory and not combat1done:
             print("You sneak up to the balcony. Just as you jimmy the lock, the man wakes up, and attacks you!")
