@@ -41,7 +41,7 @@ if bsyn == "n":
     countdown()
 region = 1
 rtextdisplayed = False
-alwaysCommands = ["reset", "inventory", "goals", "combat"]
+alwaysCommands = ["reset", "inventory", "goals", "combat", "mute", "unmute"]
 inventory = []
 fight = []
 fightCorrect = []
@@ -88,7 +88,8 @@ def combat(difficulty):
             pygame.mixer.fadeout(1)
             time.sleep(1)
             battling = 0
-
+            pygame.mixer.music.load(os.path.join("audio" , "music.ogg"))
+            pygame.mixer.music.play(loops=-1)
             break
     
             
@@ -103,6 +104,10 @@ while True:
     if command.lower() == "combat":
         combat(5)
         print(fight)
+    if command.lower() == "mute":
+        pygame.mixer.music.set_volume(0.0)
+    if command.lower() == "unmute":
+        pygame.mixer.music.set_volume(1.0)
         '''while i <= len(inventory):
             print(inventory[i])
             i = i + 1'''
@@ -167,7 +172,7 @@ while True:
         if command.lower() == "pick up knife":
             print("You pick up the sharpest seeming knife.")
             time.sleep(0.5)
-            inventory.extend("Knife")
+            inventory.insert(0, "Knife")
         elif command.lower() == "walk to living room":
             print("Going east...")
             time.sleep(0.5)
@@ -241,6 +246,7 @@ while True:
     if region == 5 and rtextdisplayed:
         if "Knife" in inventory and not combat1done:
             print("You sneak up to the balcony. Just as you jimmy the lock, the man wakes up, and attacks you!")
+            currentEnemy = "MAN ON BALCONY"
             combat(3)
             combat1done = True
         else:
