@@ -13,3 +13,6 @@ LIBRARIES:
 - pygame
 - sys
 - os
+
+
+## PLEASE don't criticize the flurry of pull requests, I was confused a bit.
