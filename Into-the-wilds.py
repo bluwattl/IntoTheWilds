@@ -292,7 +292,7 @@ while True:
                 time.sleep(0.5)
                 region = 7
                 rtextdisplayed = False
-            elif "daidaku" in command.lower() or "school" in command.lower():
+            elif "daigaku" in command.lower() or "school" in command.lower():
                 print("Going west...")
                 time.sleep(0.5)
                 region = 8
