@@ -7,6 +7,15 @@ pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load(os.path.join("audio" , "music.ogg"))
 pygame.mixer.music.play(loops=-1)
+region = 1
+rtextdisplayed = False
+alwaysCommands = ["reset", "inventory", "goals", "combat", "mute", "unmute"]
+inventory = []
+fight = []
+fightCorrect = []
+combat1done = False
+battling = 0
+currentEnemy = ""
 print("INTO THE WILDS: A TEXT ADVENTURE")
 def backstory():
     print("YOU LIVE IN 36TH CENTURY TOKYO, WHERE THE WORLD IS IN PANIC.")
@@ -32,33 +41,40 @@ def countdown():
     time.sleep(1)
     print("1")
     time.sleep(1)
-print("DO YOU WANT BACKSTORY? y/n")
-bsyn = input()
-if bsyn == "y":
-    backstory()
-    countdown()
-if bsyn == "n":
-    countdown()
-region = 1
-rtextdisplayed = False
-alwaysCommands = ["reset", "inventory", "goals", "combat", "mute", "unmute"]
-inventory = []
-fight = []
-fightCorrect = []
-combat1done = False
-battling = 0
-currentEnemy = ""
-#                   1                                                                                                                                2                                                                                                                   3                                                                                                              4                                                                                                            5                                                                         6
-regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony. <return>", "", "", "", "", "", ""]
+def askforbackstory():
+    print("DO YOU WANT BACKSTORY? y/n")
+    bsyn = input()
+    if bsyn == "y":
+        backstory()
+        countdown()
+        region = 1
+    if bsyn == "n":
+        countdown()
+        region = 1
+askforbackstory()
+def died():
+    print("You died...")
+    time.sleep(1)
+    print("Would you like to play again? y/n")
+    playagain = input()
+    if playagain.lower() == "y" or playagain.lower() == "yes":
+        askforbackstory
+    else:
+        print("Thanks for playing!")
+        time.sleep(1)
+        exit()
+        
+#                   1                                                                                                                                2                                                                                                                   3                                                                                                              4                                                                                                            5                                                                         6                                                                                                                           7   8   9   10  11
+regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony. <enter>", "You sneak in through the vent system, because if you went in through the main doors, you would surely be spotted. <enter>", "", "", "", "", "The man's house is oddly quiet, even though it's the middle of the night. You can see a door that probably leads to the bedroom, a kitchen and another door that probably leads to a bathroom.",]
 def combat(difficulty):
     pygame.mixer.stop()
     pygame.mixer.music.load(os.path.join('audio', "battle.ogg"))
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(loops=-1)
     battling = 1
     fight = []
-    difficulty += 1
+    difficultymo = difficulty - 1
     fightChecker = ""
-    for i in range(1, difficulty):
+    for i in range(1, difficultymo):
         fightadd = random.randint(1,4)
         if fightadd == 1:
             fightadd = "W"
@@ -70,13 +86,15 @@ def combat(difficulty):
             fightadd = "D"
         fight.append(fightadd)
         i += 1
-    for i in range(1, difficulty):
+    for i in range(1, difficultymo):
         print(fight[i - 1])
         fightchecker = input()
         time.sleep(0.5)
         if fightchecker == fight[i-1]:
             fightCorrect.extend("y")
-            if len(fightCorrect) > 4:
+            print(len(fightCorrect))
+            print(difficultymo)
+            if len(fightCorrect) > difficultymo:
                 print("You vanquished "+ currentEnemy +"!")
                 pygame.mixer.fadeout(1)
                 time.sleep(1)
@@ -87,14 +105,13 @@ def combat(difficulty):
             print("Wrong")
             pygame.mixer.fadeout(1)
             time.sleep(1)
-            battling = 0
-            pygame.mixer.music.load(os.path.join("audio" , "music.ogg"))
-            pygame.mixer.music.play(loops=-1)
+            died()
             break
+
     
 def commlist():
     print("Valid commands are:")
-    print(WALK,LOOK,TAKE,CBAT,INVT,HALP[0],LEAV[0])
+    print(WALK,LOOK,TAKE,CBAT,INVT,HALP[0],LEAV[0], "mute", "unmute")
     return 0
 
 WALK = ["walk","go","move"]
@@ -111,7 +128,6 @@ EAST = ["east","right"]
 WEST = ["west","left"]
 UPUP = ["up","climb","jump"]
 DOWN = ["down","crouch","duck"]
-
 while True:
     if rtextdisplayed == False:
         print(regionalText[region])
@@ -151,7 +167,7 @@ while True:
         if command.lower().split(' ',1)[0] in WALK:
             # print("reg1 we are walking.")
             # but which way?
-            if "outside" in command.lower() or command.lower().split(' ',1)[-1] in NRTH:
+            if "outside" in command.lower() or "door" in command.lower() or command.lower().split(' ',1)[-1] in NRTH:
                 print("Going north...")
                 time.sleep(0.5)
                 region = 2
@@ -168,7 +184,7 @@ while True:
             # ok, we are using something.
             # what are we using?
             if command.lower().split(' ',1)[-1] in ["television","tv"]:
-                print("You turn on the televsion. There is a announcer, delivering the news.")
+                print("You turn on the television. There is a announcer, delivering the news.")
                 time.sleep(3)
                 print("Always be on the lookout for the Mutants.")
                 print("The Mutants, eh? Is that what they're calling us?")
@@ -213,7 +229,6 @@ while True:
 
     if region == 3 and rtextdisplayed:
         #print("Got inside region 3 loop")
-<<<<<<< HEAD
         if command.lower() == "pick up knife":
             print("You pick up the sharpest seeming knife.")
             time.sleep(0.5)
@@ -223,14 +238,13 @@ while True:
             time.sleep(0.5)
             region = 1
             rtextdisplayed = False
-=======
         if command.lower().split(' ',1)[0] in TAKE:
             if "knife" in command.lower() and "Knife" not in inventory:
                 print("You pick up the sharpest seeming knife.")
                 time.sleep(0.5)
                 inventory.append("Knife")
             elif "Knife" in inventory:
-                print("You already took the sharpest knife.")
+                print("You already took a knife.")
             else:
                 print("You can't pick that up.")
 
@@ -242,8 +256,6 @@ while True:
                 rtextdisplayed = False
             else:
                 print("You walk into a wall.")
-
->>>>>>> b1c9b99ebd0ee076a5c566e581e6166a526cc165
         elif command.lower() in alwaysCommands:
                 sfhdkjfhkjhdf = 1
 
@@ -260,7 +272,7 @@ while True:
                 time.sleep(0.5)
                 print("WEST: POLICE STATION, HOSPITAL, DAIGAKU HIGH SCHOOL.")
                 time.sleep(0.5)
-                print("NRTH: SHIBUYA LIBRARY, KOKUGAKUIN UNIVERSITY.")
+                print("NORTH: SHIBUYA LIBRARY, KOKUGAKUIN UNIVERSITY.")
                 time.sleep(0.5)
                 print("EAST: APARTMENTS.")
                 time.sleep(0.5)
@@ -325,6 +337,10 @@ while True:
             currentEnemy = "MAN ON BALCONY"
             combat(3)
             combat1done = True
+            print("You slowly creep into the man's apartment.")
+            time.sleep(1)
+            region = 11
+            rtextdisplayed = False
         else:
             print("Quickly, you run back to your apartment door.")
             print("Going west...")
