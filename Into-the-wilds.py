@@ -3,7 +3,6 @@ import random
 import pygame
 import sys
 import os
-pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load(os.path.join("audio" , "music.ogg"))
 pygame.mixer.music.play(loops=-1)
@@ -64,8 +63,8 @@ def died():
         time.sleep(1)
         exit()
         
-#                   1                                                                                                                                2                                                                                                                   3                                                                                                              4                                                                                                            5                                                                         6                                                                                                                           7   8   9   10  11
-regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony. <enter>", "You sneak in through the vent system, because if you went in through the main doors, you would surely be spotted. <enter>", "", "", "", "", "The man's house is oddly quiet, even though it's the middle of the night. You can see a door that probably leads to the bedroom, a kitchen and another door that probably leads to a bathroom.",]
+#                   1                                                                                                                                2                                                                                                                   3                                                                                                              4                                                                                                            5                                                                         6                                                                                                                                                                                                                     7       8   9   10  11
+regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony. <enter>", "You are outside the main doors of the Tokyo police station. You see a vent around the side of the building, but, then again, you could try walking through the front doors... (Enter your decision, vents or doors)", "You are outside one of many hospitals in Tokyo. The main doors are in front of you.", "", "", "", "The man's house is oddly quiet, even though it's the middle of the night. You can see a door that probably leads to the bedroom, a kitchen and another door that probably leads to a bathroom.","You don't need to wait long. Soon enough, a team of officers rush into the building, and whisk you off to a empty holding cell."]
 def combat(difficulty):
     pygame.mixer.stop()
     pygame.mixer.music.load(os.path.join('audio', "battle.ogg"))
@@ -151,7 +150,7 @@ while True:
             print(inventory[i])
             i = i + 1'''
     if command.lower() in LEAV:
-        yesquit = input("Are you sure you want to quit?")
+        yesquit = input("Are you sure you want to quit? y/n")
         if yesquit.lower()[0] == "y":
             exit()
         else:
@@ -309,7 +308,7 @@ while True:
             if command.lower().split(' ',1)[-1] in WEST:
                 print("You have to be more specific than that.")
                 print("Do you want to go to the police station, hospital, or high school?")
-                break
+                
 
             if "police" in command.lower() or "station" in command.lower():
                 print("Going west...")
@@ -347,6 +346,23 @@ while True:
             time.sleep(0.5)
             region = 2
             rtextdisplayed = False
+    if region == 6 and rtextdisplayed:
+        if command.lower() == "doors":
+            decision1 = "doors"
+            print("You chose to go in through the doors.")
+            time.sleep(3)
+            print("You try the handle. Unlocked!")
+            time.sleep(2)
+            print("As you step inside, a net falls onto you and an alarm goes off.")
+            region = 13
+            rtextdisplayed = False
+        if command.lower() == "vents":
+            decision1 = "vents"
+            print("You chose to go in through the vent system.")
+            region = 14
+            rtextdisplayed = False
+    if region == 7 and rtextdisplayed:
+        if command.lower
         
 
 
