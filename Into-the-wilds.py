@@ -21,7 +21,7 @@ def backstory():
     time.sleep(3)
     print("THERE ARE HUMAN-PANDA HYBRIDS, WHO THE NORMAL HUMANS HATE.")
     time.sleep(3)
-    print("AS THE CITY BEGAN TO DISLIKE THESE CREATURES, THE OLDER ONES RETREATED TO THE BAMBOO FORESTS.")
+    print("AS THE CITY BEGAN TO DISLIKE THESE CREATURES, THE OLDER ONES RETREATED TO THE BAMBOO GROVES.")
     time.sleep(3)
     print("YOU ARE ONE OF THESE HYBRIDS. HOWEVER, YOU DID NOT LEAVE THE CITY.")
     time.sleep(3)
@@ -57,14 +57,14 @@ def died():
     print("Would you like to play again? y/n")
     playagain = input()
     if playagain.lower() == "y" or playagain.lower() == "yes":
-        askforbackstory
+        askforbackstory()
     else:
         print("Thanks for playing!")
         time.sleep(1)
         exit()
         
 #                   1                                                                                                                                2                                                                                                                   3                                                                                                              4                                                                                                            5                                                                         6                                                                                                                                                                                                                     7       8   9   10  11
-regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony. <enter>", "You are outside the main doors of the Tokyo police station. You see a vent around the side of the building, but, then again, you could try walking through the front doors... (Enter your decision, vents or doors)", "You are outside one of many hospitals in Tokyo. The main doors are in front of you.", "", "", "", "The man's house is oddly quiet, even though it's the middle of the night. You can see a door that probably leads to the bedroom, a kitchen and another door that probably leads to a bathroom.","You don't need to wait long. Soon enough, a team of officers rush into the building, and whisk you off to a empty holding cell."]
+regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony. <enter>", "You are outside the main doors of the Tokyo police station. You see a vent around the side of the building, but, then again, you could try walking through the front doors... (Enter your decision, vents or doors)", "You are outside one of many hospitals in Tokyo. The main doors are in front of you. You .", "", "", "", "The man's house is oddly quiet, even though it's the middle of the night. You can see a door that probably leads to the bedroom, a kitchen and another door that probably leads to a bathroom.","You don't need to wait long. Soon enough, a team of officers rush into the building, and whisk you off to a empty holding cell."]
 def combat(difficulty):
     pygame.mixer.stop()
     pygame.mixer.music.load(os.path.join('audio', "battle.ogg"))
@@ -84,7 +84,7 @@ def combat(difficulty):
         else:
             fightadd = "D"
         fight.append(fightadd)
-        i += 1
+        i = i + 1
     for i in range(1, difficultymo):
         print(fight[i - 1])
         fightchecker = input()
@@ -101,7 +101,7 @@ def combat(difficulty):
                 pygame.mixer.music.play(loops=-1)
                 break
         else:
-            print("Wrong")
+            print(currentEnemy + " dealt a lethal blow!")
             pygame.mixer.fadeout(1)
             time.sleep(1)
             died()
@@ -110,7 +110,7 @@ def combat(difficulty):
     
 def commlist():
     print("Valid commands are:")
-    print(WALK,LOOK,TAKE,CBAT,INVT,HALP[0],LEAV[0], "mute", "unmute")
+    print("walk to, look at, pick up, use, inventory, quit, mute, unmute.")
     return 0
 
 WALK = ["walk","go","move"]
@@ -118,7 +118,7 @@ LOOK = ["look","see","watch"]
 TAKE = ["use","take","grab","pick up"]
 CBAT = ["combat","fight","attack"]
 INVT = ["inventory","me","self"]
-HALP = ["help","?","huh","what","command","commands"]
+HELP = ["help","?","huh","what","command","commands"]
 LEAV = ["quit","die","exit"]
 
 NRTH = ["north","forward"]
@@ -133,12 +133,19 @@ while True:
         rtextdisplayed = True
     command = input()
 
-    if command.lower() in HALP:
+    if command.lower() in HELP:
         commlist()
         
     if command.lower() in INVT:
         i = 0
-        print(inventory)
+        if len(inventory) < 1:
+            print("You aren't carrying anything!")
+        else:
+            print("You are carrying:")
+            i=0
+            while i < len(inventory):
+                print(inventory[i])
+                i = i + 1
     if command.lower() in CBAT:
         combat(5)
         print(fight)
@@ -248,7 +255,7 @@ while True:
                 print("You can't pick that up.")
 
         elif command.lower().split(' ',1)[0] in WALK:
-            if "living room" in command.lower() or command.lower().split(' ',1)[-1] in EAST:
+            if "living room" in command.lower():
                 print("Going east...")
                 time.sleep(0.5)
                 region = 1
@@ -354,15 +361,16 @@ while True:
             print("You try the handle. Unlocked!")
             time.sleep(2)
             print("As you step inside, a net falls onto you and an alarm goes off.")
-            region = 13
+            region = 12
             rtextdisplayed = False
         if command.lower() == "vents":
             decision1 = "vents"
             print("You chose to go in through the vent system.")
-            region = 14
+            region = 13
             rtextdisplayed = False
     if region == 7 and rtextdisplayed:
-        if command.lower
+        if command.lower() == "":
+            jfdh=1
         
 
 
