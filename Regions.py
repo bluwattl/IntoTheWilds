@@ -6,8 +6,8 @@ REGIONS                     |RTEXT DONE
 5=DeadEnd                   |Y
 6=PoliceStationOutside      |Y
 7=HospitalLobby             |Y
-8=HighSchoolOutside         |N
-9=UniversityOutside         |N
+8=HighSchoolOutside         |Y
+9=UniversityOutside         |Y
 10=LibraryOutside           |N
 11=MansApartment            |Y
 12=HoldingCell              |N

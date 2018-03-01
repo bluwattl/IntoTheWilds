@@ -13,7 +13,9 @@ inventory = []
 fight = []
 fightCorrect = []
 combat1done = False
+invisisuit = False
 battling = 0
+i = 1
 currentEnemy = ""
 print("INTO THE WILDS: A TEXT ADVENTURE")
 def backstory():
@@ -58,13 +60,15 @@ def died():
     playagain = input()
     if playagain.lower() == "y" or playagain.lower() == "yes":
         askforbackstory()
+        combat1done = False
+
     else:
         print("Thanks for playing!")
         time.sleep(1)
         exit()
-        
+
 #                   1                                                                                                                                2                                                                                                                   3                                                                                                              4                                                                                                            5                                                                         6                                                                                                                                                                                                                     7       8   9   10  11
-regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony. <enter>", "You are outside the main doors of the Tokyo police station. You see a vent around the side of the building, but, then again, you could try walking through the front doors... (Enter your decision, vents or doors)", "You are outside one of many hospitals in Tokyo. The main doors are in front of you. You sneak in. The lobby is surprisingly decorative. There is a direction sign up ahead.", "", "", "", "The man's house is oddly quiet, even though it's the middle of the night. You can see a door that probably leads to the bedroom, a kitchen and another door that probably leads to a bathroom.","You don't need to wait long. Soon enough, a team of officers rush into the building, and whisk you off to a empty holding cell."]
+regionalText = ["", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock.", "You reach a dead end. There is a man, asleep, on his balcony. <enter>", "You are outside the main doors of the Tokyo police station. You see a vent around the side of the building, but, then again, you could try walking through the front doors... (Enter your decision, vents or doors)", "You are outside one of many hospitals in Tokyo. The main doors are in front of you. You sneak in. The lobby is surprisingly decorative. There is a direction sign up ahead, and behind it is a lift.", "Daigaku High School is quite a small school, considering it's in the centre of Tokyo. There are two blocks, conveniently labelled Block A and Block B. Which will you go to?", "This branch of Kokugakuin University is only a three-storey building, but you're sure you could find something here. Which floor will you check? (1, 2, or 3)", "", "The man's house is oddly quiet, even though it's the middle of the night. You can see a door that probably leads to the bedroom, a kitchen and another door that probably leads to a bathroom.","You don't need to wait long. Soon enough, a team of officers rush into the building, and whisk you off to a empty holding cell."]
 def combat(difficulty):
     pygame.mixer.stop()
     pygame.mixer.music.load(os.path.join('audio', "battle.ogg"))
@@ -107,7 +111,7 @@ def combat(difficulty):
             died()
             break
 
-    
+
 def commlist():
     print("Valid commands are:")
     print("walk to, look at, pick up, use, inventory, quit, mute, unmute.")
@@ -135,7 +139,7 @@ while True:
 
     if command.lower() in HELP:
         commlist()
-        
+
     if command.lower() in INVT:
         i = 0
         if len(inventory) < 1:
@@ -162,7 +166,7 @@ while True:
             exit()
         else:
             pass
-        
+
     #print("region is:" + str(region))
     #print("command.lower() is:" + command.lower())
     #print("rtextdisplayed is:" + str(rtextdisplayed))
@@ -202,7 +206,7 @@ while True:
             elif command.lower() in alwaysCommands:
                 ksdfhudshf = 1
 
-            
+
     #print("Checking region 2 loop")
     if region == 2 and rtextdisplayed:
         #print("Got inside region 2 loop")
@@ -227,7 +231,7 @@ while True:
                 fdauhfkdsjhfksjhdf = 1
             else:
                 pass
-            
+
     #print("Checking region 3 loop")
     #print("region is:" + str(region))
     #print("command.lower() is:" + command)
@@ -283,7 +287,7 @@ while True:
                 print("EAST: APARTMENTS.")
                 time.sleep(0.5)
             elif "clock" in command.lower():
-                print("The time is 1:37am.")
+                print("The time is 1:38am.")
                 time.sleep(0.5)
 
         if command.lower().split(' ',1)[0] in WALK:
@@ -292,7 +296,7 @@ while True:
                 print("You have to be more specific than that.")
                 print("Do you want to go to the library or to the university?")
                 break
-            
+
             if "kokugakuin" in command.lower() or "university" in command.lower():
                 print("Going north...")
                 region = 9
@@ -315,7 +319,7 @@ while True:
             if command.lower().split(' ',1)[-1] in WEST:
                 print("You have to be more specific than that.")
                 print("Do you want to go to the police station, hospital, or high school?")
-                
+
 
             if "police" in command.lower() or "station" in command.lower():
                 print("Going west...")
@@ -327,7 +331,7 @@ while True:
                 time.sleep(0.5)
                 region = 7
                 rtextdisplayed = False
-            else "daigaku" in command.lower() or "school" in command.lower():
+            elif "daigaku" in command.lower() or "school" in command.lower():
                 print("Going west...")
                 time.sleep(0.5)
                 region = 8
@@ -367,8 +371,82 @@ while True:
             region = 13
             rtextdisplayed = False
     if region == 7 and rtextdisplayed:
-        if "walk" in command.lower() and "stairs" in commmand.lower():
-            9=9
+        if "look" in command.lower() and "post" in command.lower():
+            hospitalpostlooked = True
+            print("HOSPITAL PLAN")
+            time.sleep(0.3)
+            print("L: LOBBY")
+            time.sleep(0.3)
+            print("F1: DELIVERY UNIT & ACCIDENT AND EMERGENCY")
+            time.sleep(0.3)
+            print("F2: INTENSIVE CARE UNIT")
+            time.sleep(0.3)
+            print("F3: CHILDREN'S HOSPITAL")
+            time.sleep(0.3)
+            print("F4: THEATERS & ORTHOPAEDICS")
+            time.sleep(0.3)
+            print("F5: CARDIOLOGY & RADIOLOGY")
+            time.sleep(0.3)
+        if "walk" in command.lower() and "lift" in commmand.lower():
+            if hospitalpostlooked:
+                  print("Which floor would you like to go to?")
+                  if "1" in command.lower():
+                      region = 14
+                      rtextdisplayed = False
+                  if "2" in command.lower():
+                      region = 15
+                      rtextdisplayed = False
+                  if "3" in command.lower():
+                      region = 16
+                      rtextdisplayed = False
+                  if "4" in command.lower():
+                      region = 17
+                      rtextdisplayed = False
+                  if "5" in command.lower():
+                      region = 18
+                      rtextdisplayed = False
+            else:
+                  print("How do you know where you're going?")
+    if region == 8 and rtextdisplayed:
+        if "a" in command.lower():
+            region = 19
+            rtextdisplayed = False
+        if "b" in command.lower():
+            region = 20
+            rtextdisplayed = False
+    if region == 9 and rtextdisplayed:
+        if "1" in command.lower():
+            i = 1
+            while i < 4:
+                print("BRB, looking for stuff")
+                time.sleep(1)
+                i=i+1
+            print("You found a Philips screwdriver!")
+            inventory.append("Philips screwdriver")
+        if "2" in command.lower():
+            i = 1
+            if invisisuit:
+                print("You put on the INVISISUIT, sneak past the guards and start searching.")
+                while i < 4:
+                    print("BRB, looking for stuff")
+                    time.sleep(1)
+                    i=i+1
+                print("You found a shotgun!")
+                inventory.append("Shotgun")
+            if not invisisuit:
+                print("The nightly patrol is here, and you are spotted and shot.")
+                time.sleep(1)
+                died()
+        if "3" in command.lower():
+            i = 1
+            while i < 4:
+                print("BRB, looking for stuff")
+                time.sleep(1)
+                i=i+1
+            print("You found an... icecream cone?!")
+            inventory.append("Icecream cone")
+                
+            
         
 
 
