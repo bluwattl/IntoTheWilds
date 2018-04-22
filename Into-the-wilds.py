@@ -4,8 +4,9 @@ import pygame
 import sys
 import os
 pygame.mixer.init()
-pygame.mixer.music.load(os.path.join("audio" , "music.ogg"))
-pygame.mixer.music.play(loops=-1)
+def music2():
+    pygame.mixer.music.load(os.path.join("audio" , "music2.ogg"))
+    pygame.mixer.music.play(loops=-1)
 region = 1
 rtextdisplayed = False
 alwaysCommands = ["reset", "inventory", "goals", "combat", "mute", "unmute"]
@@ -18,6 +19,7 @@ seennewsstory = False
 battling = 0
 i = 1
 currentEnemy = ""
+music2()
 print("INTO THE WILDS: A TEXT ADVENTURE")
 def backstory():
     print("YOU LIVE IN 36TH CENTURY TOKYO, WHERE THE WORLD IS IN PANIC.")
@@ -72,13 +74,13 @@ def died():
 regionalText = ["Technically, region 0 isn't supposed to exist. But congratulations!", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock. There is a small newsstand next to the e-post, with a big headline barely visible.", "You reach a dead end. There is a man, asleep, on his balcony. <enter>", "You are outside the main doors of the Tokyo police station. You see a vent around the side of the building, but, then again, you could try walking through the front doors... (Enter your decision, vents or doors)", "You are outside one of many hospitals in Tokyo. The main doors are in front of you. You sneak in. The lobby is surprisingly decorative. There is a direction sign up ahead, and behind it is a lift.", "Daigaku High School is quite a small school, considering it's in the centre of Tokyo. There are two blocks, conveniently labelled Block A and Block B. Which will you go to?", "This branch of Kokugakuin University is only a three-storey building, but you're sure you could find something here. Which floor will you check? (1, 2, or 3)", "The library is filled with ancient document about Tokyo's and Japan's history.", "The man's house is oddly quiet, even though it's the middle of the night. You can see a door that probably leads to the bedroom, a kitchen and another door that probably leads to a bathroom.","You don't need to wait long. Soon enough, a team of officers rush into the building, and whisk you off to a empty holding cell."]
 def combat(difficulty):
     pygame.mixer.stop()
-    pygame.mixer.music.load(os.path.join('audio', "battle.ogg"))
+    pygame.mixer.music.load(os.path.join('audio', "battle2.ogg"))
     pygame.mixer.music.play(loops=-1)
     battling = 1
     fight = []
     difficultymo = difficulty - 1
     fightChecker = ""
-    for i in range(1, difficultymo):
+    for i in range(1, difficulty):
         fightadd = random.randint(1,4)
         if fightadd == 1:
             fightadd = "W"
@@ -90,20 +92,19 @@ def combat(difficulty):
             fightadd = "D"
         fight.append(fightadd)
         i = i + 1
-    for i in range(1, difficultymo):
+    
+    for i in range(1, difficulty):
         print(fight[i - 1])
         fightchecker = input()
         time.sleep(0.5)
-        if fightchecker == fight[i-1]:
+        if fightchecker.upper() == fight[i-1]:
             fightCorrect.extend("y")
-            print(len(fightCorrect))
-            print(difficultymo)
-            if len(fightCorrect) > difficultymo:
+            print(str(len(fightCorrect))+ "/" + str(difficultymo))
+            if len(fightCorrect) >= difficultymo:
                 print("You vanquished "+ currentEnemy +"!")
                 pygame.mixer.fadeout(1)
                 time.sleep(1)
-                pygame.mixer.music.load(os.path.join("audio" , "music.ogg"))
-                pygame.mixer.music.play(loops=-1)
+                music2()
                 break
         else:
             print(currentEnemy + " dealt a lethal blow!")
@@ -152,8 +153,8 @@ while True:
                 print(inventory[i])
                 i = i + 1
     if command.lower() in CBAT:
+        currentEnemy = "NOBODY"
         combat(5)
-        print(fight)
     if command.lower() == "mute":
         pygame.mixer.music.set_volume(0.0)
     if command.lower() == "unmute":
