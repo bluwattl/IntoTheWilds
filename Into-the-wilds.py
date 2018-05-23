@@ -169,6 +169,7 @@ while True:
             exit()
         else:
             pass
+        
 
     #print("region is:" + str(region))
     #print("command.lower() is:" + command.lower())
@@ -497,5 +498,8 @@ while True:
                     i=i+1
                 print("Aha! You find the jumpsuit!")
                 inventory.append("Invisibilty suit")
+    if region == 12 and rtextdisplayed:
+        print("You are left in the holding cell for a few minutes, but soon a burly man with a patch saying CHIEF OF POLICE walks in.")
+        time.sleep
                 
             
