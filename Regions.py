@@ -9,8 +9,8 @@ REGIONS                     |RTEXT DONE |STATUS
 8=HighSchoolOutside         |Y          |D
 9=UniversityOutside         |Y          |D
 10=LibraryOutside           |Y          |D
-11=MansApartment            |Y          |P
-12=HoldingCell              |Y          |N
+11=MansApartment            |Y          |D
+12=HoldingCell              |Y          |P
 13=Vents                    |N          |N
 14=HospitalFloorOne         |N          |N
 15=HospitalFloorTwo         |N          |N
