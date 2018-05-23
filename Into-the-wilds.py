@@ -451,7 +451,7 @@ while True:
         if "2" in command.lower():
             i = 1
             if invisisuit:
-                print("You put on the INVISISUIT, sneak past the guards and start searching.")
+                print("You put on the invisibility suit, sneak past the guards and start searching.")
                 while i < 4:
                     print("BRB, looking for stuff")
                     time.sleep(1)
@@ -483,4 +483,19 @@ while True:
         if "walk" in command.lower() and "balcony" or "alley" in command.lower():
             region = 2
             rtextdisplayed = False
-        if 
+        if "look" in command.lower() and "closet" or "cupboard" in command.lower():
+            if seennewsstory:
+                print("That's who it was!")
+                time.sleep(0.5)
+                print("This man had supposedly invented a jumpsuit that made you invisible, according to the news story.")
+                time.sleep(1.2)
+                print("Now to see if it's true...")
+                i = 1
+                while i < 4:
+                    print("BRB, looking for stuff")
+                    time.sleep(1)
+                    i=i+1
+                print("Aha! You find the jumpsuit!")
+                inventory.append("Invisibilty suit")
+                
+            
