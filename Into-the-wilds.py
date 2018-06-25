@@ -18,23 +18,27 @@ invisisuit = False
 seennewsstory = False
 researchNeeded = False
 battling = 0
+saveregioncodeinput = 0
+saveinventcodeinput = 0
+saveaccompcodeinput = 0
+savecodeoutput = 0
 i = 1
 currentEnemy = ""
 music2()
 print("INTO THE WILDS: A TEXT ADVENTURE")
 def backstory():
-    print("YOU LIVE IN 36TH CENTURY TOKYO, WHERE THE WORLD IS IN PANIC.")
+    print("You live in 36th century Tokyo, where the world is in panic.")
     time.sleep(3)
-    print("THERE ARE HUMAN-PANDA HYBRIDS, WHO THE NORMAL HUMANS HATE.")
+    print("There are human-panda hybrids, who the normal humans hate..")
     time.sleep(3)
-    print("AS THE CITY BEGAN TO DISLIKE THESE CREATURES, THE OLDER ONES RETREATED TO THE BAMBOO GROVES.")
+    print("As the city began to dislike these creatures, the older ones peacefully retreated to the bamboo groves.")
     time.sleep(3)
-    print("YOU ARE ONE OF THESE HYBRIDS. HOWEVER, YOU DID NOT LEAVE THE CITY.")
+    print("You are one of these hybrids. However, you did not leave Tokyo.")
     time.sleep(3)
-    print("YOU NEED TO TAKE ALL OF THE REMAINING HYBRIDS TO THE GROVES.")
+    print("You need to take all the remaning hybrids to the groves.")
     time.sleep(3)
 def countdown():
-    print("YOUR MISSION BEGINS...")
+    print("Your mission begins...")
     time.sleep(1)
     print("5")
     time.sleep(1)
@@ -46,6 +50,11 @@ def countdown():
     time.sleep(1)
     print("1")
     time.sleep(1)
+def askforsavecode():
+    print("Enter the first two numbers of your save code.")
+    saveregioncodeinput = input()
+    print("Great! Now enter the next section of the code, between the two dashes.")
+    saveinventcodeinput = input()
 def askforbackstory():
     print("DO YOU WANT BACKSTORY? y/n")
     bsyn = input()
@@ -500,6 +509,7 @@ while True:
                 inventory.append("Invisibilty suit")
     if region == 12 and rtextdisplayed:
         print("You are left in the holding cell for a few minutes, but soon a burly man with a patch saying CHIEF OF POLICE walks in.")
-        time.sleep
+        time.sleep(4.5)
+        print("")
                 
             
