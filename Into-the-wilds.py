@@ -81,7 +81,7 @@ def died():
         exit()
 
 #                                                                                      1                                                                                                                                2                                                                                                                   3                                                                                                              4                                                                                                                                                                                               5                                                                         6                                                                                                                                                                                                                     7                                                                                                                                                                                                       8                                                                                                                                                                               9                                                                                                                                                                10                                                                                 11                                                                                                                                                                                                                    12
-regionalText = ["Technically, region 0 isn't supposed to exist. But congratulations!", "You are standing in your house. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock. There is a small newsstand next to the e-post, with a big headline barely visible.", "You reach a dead end. There is a man, asleep, on his balcony. <enter>", "You are outside the main doors of the Tokyo police station. You see a vent around the side of the building, but, then again, you could try walking through the front doors... (Enter your decision, vents or doors)", "You are outside one of many hospitals in Tokyo. The main doors are in front of you. You sneak in. The lobby is surprisingly decorative. There is a direction sign up ahead, and behind it is a lift.", "Daigaku High School is quite a small school, considering it's in the centre of Tokyo. There are two blocks, conveniently labelled Block A and Block B. Which will you go to?", "This branch of Kokugakuin University is only a three-storey building, but you're sure you could find something here. Which floor will you check? (1, 2, or 3)", "The library is filled with ancient documents about Tokyo's and Japan's history.", "The man's house is oddly quiet, even though it's the middle of the night. You can see a closet near the other side of the room. And, of course, behind you is the balcony leading to the alley where you came from.","You don't need to wait long. Soon enough, a team of officers rush into the building, and whisk you off to a empty holding cell."]
+regionalText = ["Technically, region 0 isn't supposed to exist. But congratulations!", "You are standing in your living room. On your left is the door outside. In front of you is a television. Behind you is the kitchen.", "You are in a dark alleyway. There is a path, stretching right and left. You can also see the door to your house.", "You are in your kitchen. Behind you is the living room. There are a few knives on a rack above the counter.", "You are at a crossroads. There is an e-post on one corner. Opposite, on another corner, there is a clock. There is a small newsstand next to the e-post, with a big headline barely visible.", "You reach a dead end. There is a man, asleep, on his balcony. <enter>", "You are outside the main doors of the Tokyo police station. You see a vent around the side of the building, but, then again, you could try walking through the front doors... (Enter your decision, vents or doors)", "You are outside one of many hospitals in Tokyo. The main doors are in front of you. You sneak in. The lobby is surprisingly decorative. There is a direction sign up ahead, and behind it is a lift.", "Daigaku High School is quite a small school, considering it's in the centre of Tokyo. There are two blocks, conveniently labelled Block A and Block B. Which will you go to?", "This branch of Kokugakuin University is only a three-storey building, but you're sure you could find something here. Which floor will you check? (1, 2, or 3)", "The library is filled with ancient documents about Tokyo's and Japan's history.", "The man's house is oddly quiet, even though it's the middle of the night. You can see a closet near the other side of the room. And, of course, behind you is the balcony leading to the alley where you came from.","You don't need to wait long. Soon enough, a team of officers rush into the building, and whisk you off to a empty holding cell."]
 def combat(difficulty):
     pygame.mixer.stop()
     pygame.mixer.music.load(os.path.join('audio', "battle2.ogg"))
@@ -209,11 +209,11 @@ while True:
             if command.lower().split(' ',1)[-1] in ["television","tv"]:
                 print("You turn on the television. There is a announcer, delivering the news.")
                 time.sleep(3)
-                print("Always be on the lookout for the Mutants.")
-                print("The Mutants, eh? Is that what they're calling us?")
+                print("NEWSREADER: Always be on the lookout for the Mutants.")
+                print("YOU: The Mutants, eh? Is that what they're calling us?")
                 time.sleep(3)
-                print("Already 6 of the nasty creatures are locked up in the main police station in Tokyo.")
-                print("Aha! So that's where I should start.")
+                print("NEWSREADER: Already 6 of the nasty creatures are locked up in the main police station in Tokyo.")
+                print("YOU: Aha! So that's where I should start.")
                 time.sleep(3)
                 print("The news stops, to be replaced by a cartoon about a boy trying to become a 'Pokeyman Mister?' Or something like that.")
             elif command.lower() in alwaysCommands:
@@ -324,12 +324,13 @@ while True:
                     print("Underneath is a photo who looks strangely familiar...")
                 seennewsstory = True
 
+        
             if command.lower().split(' ',1)[-1] in NRTH:
                 print("You have to be more specific than that.")
                 print("Do you want to go to the library or to the university?")
                 break
 
-            if "kokugakuin" in command.lower() or "university" in command.lower():
+            elif "kokugakuin" in command.lower() or "university" in command.lower():
                 print("Going north...")
                 region = 9
                 time.sleep(0.5)
@@ -507,9 +508,9 @@ while True:
                     i=i+1
                 print("Aha! You find the jumpsuit!")
                 inventory.append("Invisibilty suit")
-    if region == 12 and rtextdisplayed:
+    if region == 12:
         print("You are left in the holding cell for a few minutes, but soon a burly man with a patch saying CHIEF OF POLICE walks in.")
         time.sleep(4.5)
-        print("")
-                
-            
+        print("'Where are the rest of your kind?' he yells at you. 'And don't bother lying. We'll kill you and the rest of your kind if you do.'")
+        time.sleep(2)
+        print("Do you ")
